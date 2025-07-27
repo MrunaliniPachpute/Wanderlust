@@ -40,9 +40,7 @@ Wanderlust is a full-fledged MERN stack web application that lets users explore,
   - **Bootstrap** 
 
 
-## Deployed URL: 
-# Wanderlust
-**Live Site 👉** [Visit Here](https://wanderlust-hcp4.onrender.com)
+## Deployed URL: **Live Site 👉** [Visit Here](https://wanderlust-hcp4.onrender.com)
 
 
 
