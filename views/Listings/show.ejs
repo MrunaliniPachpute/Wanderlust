@@ -1,0 +1,127 @@
+<% layout("layouts/boilerplate.ejs") %>
+    <script>
+        const mapToken = "<%= process.env.MAP_PRIMARY_KEY %>";
+        const currShowListing =  <%- JSON.stringify(listItem) %>;
+    </script>
+    <body>
+        <div class="show-wrapper">
+            <h3 class="mb-2 mt-2">
+                <b>
+                    <%= listItem.title %>
+                </b>
+            </h3>
+            <img src="<%= listItem.image.url %>" class="show-img" alt="listItem image">
+
+            <div class="txt-content">
+                <div class="listing-details mt-2">
+
+                    <p class="show-desc">
+                        <%= listItem.description %>
+                    </p>
+                    <p class="listing-price">&#8377; <%= listItem.price.toLocaleString("en-IN") %>
+                    </p>
+                    <p class="listing-country">
+                        <%= listItem.country %>
+                    </p>
+                    <p class="listing-location">
+                        <%= listItem.location %>
+                    </p>
+                    <p class="listing-owner">
+                        Owned By : 
+                        <i><%= listItem.owner.username %></i>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="show-btns">
+            <a href="/listings" class="add-btn btn">Back to home page</a>
+            <% if(currUser && listItem.owner._id.equals(currUser._id)){ %>
+                <a href="/listings/<%= listItem._id%>/edit" class="add-btn btn">Edit Listing</a>
+                <form action="/listings/<%= listItem._id%>?_method=DELETE" method="POST">
+                    <button class="btn-dark btn">Delete Listing</button>
+                </form>
+                <% } %>
+        </div>
+
+        <br>
+
+        <div class="mb-3 Review">
+            <% if(currUser){ %>
+                <hr>
+                <h4>Leave a Review</h4>
+                <form action="/listings/<%= listItem._id%>/reviews" method="POST" class="needs-validation" novalidate>
+                    <div class="mb-3 slider-container">
+                        <label for="rating" class="form-label">Rating</label>
+                        <!-- <input type="range" min="1" max="5" id="rating" name="review[rating]" class="form-range"> -->
+
+                        <fieldset class="starability-slot" required>
+                            <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="5"
+                                checked aria-label="No rating." />
+                            <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                            <label for="first-rate1" title="Terrible">1 star</label>
+                            <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                            <label for="first-rate2" title="Not good">2 stars</label>
+                            <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                            <label for="first-rate3" title="Average">3 stars</label>
+                            <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                            <label for="first-rate4" title="Very good">4 stars</label>
+                            <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                            <label for="first-rate5" title="Amazing">5 stars</label>
+                        </fieldset>
+                    </div>
+                    <div class="mb-2">
+                        <label for="comment" class="form-label">Comment</label>
+                        <textarea rows="3" cols="30" id="comment" name="review[comment]" class="form-control"
+                            required></textarea>
+                        <div class="invalid-feedback">Oops! Please share a quick comment before submitting"</div>
+                    </div>
+
+                    <button class="add-btn btn">Submit</button>
+
+                </form>
+            <% }else{ %>
+                <p>Sign up or log in to drop in a review!</p>
+            <% } %>
+            <hr>
+            <h4>All Reviews</h4>
+            <% if (listItem.reviews && listItem.reviews.length> 0) { %>
+                <div class="container">
+                    <div class="row g-4">
+                        <% for (let review of listItem.reviews) { %>
+                            <div class="col-12 col-md-6">
+                                <div class="card shadow-sm h-100 p-3">
+                                    <h5 class="card-title">@<%= review.author.username %>
+                                    </h5>
+                                    <p class="starability-result" data-rating=<%=review.rating %>>
+                                                    Rated: stars
+                                    </p>
+                                    <p class="card-text">
+                                                    <%= review.comment %>
+                                    </p>
+
+                                    <% if(currUser && review.author._id.equals(currUser._id)){ %>
+                                        <form action="/listings/<%= listItem._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                                            <button class="btn-dark btn-sm btn">Delete</button>
+                                        </form>
+                                    <% } %>
+
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            <% } else { %>
+                <p class="text-muted">No reviews yet.</p>
+            <% } %>
+            <hr />
+            <div class="map-container">
+                <h3>Where you'll be</h3>
+                 <div id="myMap"></div>
+            </div>
+        </div>
+        <br />
+        </div>
+
+        <script src="/JS/map.js"></script>
+    </body>
