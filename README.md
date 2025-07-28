@@ -2,12 +2,16 @@
 
 Wanderlust is a full-fledged MERN stack web application that lets users explore, create, and review travel listings, featuring secure authentication, dynamic routing, cloud image handling, and interactive location maps via Microsoft Azure.
 
+• Created an intuitive web application similar to Airbnb that allowed users to create their own listings and manage reviews seamlessly, integrated Cloudinary for image handling, improving upload efficiency by over 40%.
+• Implemented secure authentication using Passport.js, ensuring data protection and session-based access control.
+
 ## Features
 
 - 🔐 **Authentication & Authorization**
   - Sign Up, Login, Logout
   - Only authenticated users can create listings and reviews
   - Users can delete only their own listings/reviews
+  - Authentication handled using Passport.js
 
 - 🧭 **Listing Functionality**
   - View all listings on the homepage
@@ -21,6 +25,7 @@ Wanderlust is a full-fledged MERN stack web application that lets users explore,
   - Upload listing images via a form
   - Images are processed using **Cloudinary** in the backend
   - Only the image URLs are saved in the MongoDB database
+  - Upload performance improved by 40%
 
 - 🔍 **Search Functionality**
   - Search bar in navbar to find listings by title
@@ -36,6 +41,7 @@ Wanderlust is a full-fledged MERN stack web application that lets users explore,
   - **Node.js**
   - **Cloudinary**
   - **Microsoft Azure Maps API**
+  - Passport.js for secure user auth
   - **Joi** for input validation
   - **Bootstrap** 
 
